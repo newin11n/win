@@ -152,6 +152,76 @@
     section{ padding:60px 0; }
     .case{ grid-template-columns:1fr; gap:8px; }
   }
+
+  /* INTERACTIVE GIMMICKS */
+  :root{--glow:rgba(46,134,255,.28)}
+  body{overflow-x:hidden}
+  body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:-1;opacity:.22;background-image:linear-gradient(rgba(46,134,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(46,134,255,.045) 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(to bottom,black,transparent 70%)}
+  .reading-progress{position:fixed;top:0;left:0;height:4px;width:0;background:linear-gradient(90deg,var(--blue),#6ee7f9,var(--green));z-index:1000;box-shadow:0 0 14px var(--blue);transition:width .12s linear}
+  .hero-menu .item{cursor:pointer;position:relative;border:0;text-align:left;width:100%;font-family:var(--thai);transition:transform .25s ease,box-shadow .25s ease,background .25s ease}
+  .hero-menu .item:hover,.hero-menu .item:focus-visible{transform:translateX(8px);background:var(--blue-deep);box-shadow:0 8px 22px var(--glow);outline:none}
+  .hero-menu .item::after{content:'↗';margin-left:auto;font-family:var(--mono);opacity:.65;transition:transform .25s ease}
+  .hero-menu .item:hover::after{transform:translate(3px,-3px)}
+  .hero-menu .item.active{background:linear-gradient(90deg,var(--blue-deep),#36a6dc);box-shadow:0 10px 26px var(--glow);transform:translateX(8px)}
+  .hero-menu .item.active::after{content:'●';font-size:8px;color:#a9f4d0}
+  section:not(.hero){scroll-margin-top:24px}
+  section.reveal-ready{opacity:0;transform:translateY(34px);transition:opacity .75s ease,transform .75s cubic-bezier(.22,1,.36,1)}
+  section.reveal-ready.is-visible{opacity:1;transform:none}
+  section.focus-pulse{animation:focusPulse 1.1s ease}
+  @keyframes focusPulse{0%{filter:drop-shadow(0 0 0 rgba(46,134,255,0))}35%{filter:drop-shadow(0 0 18px rgba(46,134,255,.38))}100%{filter:drop-shadow(0 0 0 rgba(46,134,255,0))}}
+  .showcase-figure,.benefit-col,.case{transition:transform .35s ease,box-shadow .35s ease}
+  .showcase-figure:hover,.benefit-col:hover,.case:hover{transform:translateY(-5px);box-shadow:0 16px 34px rgba(15,36,57,.1)}
+  .hero-figure{position:relative}
+  .hero-figure::after{content:'AI VISION // LIVE';position:absolute;left:18px;bottom:16px;color:#dff8ff;font:11px var(--mono);letter-spacing:.12em;padding:7px 10px;border:1px solid rgba(255,255,255,.4);border-radius:6px;background:rgba(8,31,52,.65);backdrop-filter:blur(7px)}
+  .hero-figure::before{content:'';position:absolute;left:0;right:0;top:-15%;height:3px;background:linear-gradient(90deg,transparent,#6ee7f9,transparent);z-index:2;opacity:.85;animation:scan 4s ease-in-out infinite;pointer-events:none}
+  @keyframes scan{0%,100%{top:-5%;opacity:0}15%{opacity:.9}85%{opacity:.9}95%{top:105%;opacity:0}}
+  .gimmick-trigger{position:fixed;right:22px;bottom:22px;z-index:50;border:0;border-radius:999px;background:var(--ink);color:#fff;padding:13px 17px;font:600 12px var(--mono);letter-spacing:.03em;box-shadow:0 12px 28px rgba(15,36,57,.25);cursor:pointer;display:flex;align-items:center;gap:9px;transition:transform .2s,background .2s}
+  .gimmick-trigger:hover{transform:translateY(-4px);background:var(--blue-deep)}
+  .gimmick-trigger .pulse{width:8px;height:8px;border-radius:50%;background:#6ee7a1;box-shadow:0 0 0 0 rgba(110,231,161,.7);animation:pulse 1.8s infinite}
+  @keyframes pulse{70%{box-shadow:0 0 0 9px rgba(110,231,161,0)}100%{box-shadow:0 0 0 0 rgba(110,231,161,0)}}
+  .insight-modal{position:fixed;inset:0;z-index:200;display:grid;place-items:center;padding:20px;background:rgba(10,46,72,.38);backdrop-filter:blur(14px);opacity:0;visibility:hidden;transition:opacity .38s,visibility 0s linear .38s}
+  .insight-modal.open,.insight-modal.closing{opacity:1;visibility:visible;transition-delay:0s}
+  .insight-modal.open{animation:modalIn .5s cubic-bezier(.22,1,.36,1) both}
+  .insight-modal.closing{animation:modalOut .38s ease both}
+  .insight-card{width:min(590px,100%);position:relative;overflow:hidden;background:linear-gradient(145deg,#fff 0%,#f7fcff 100%);border:1px solid #cfe5f2;border-radius:24px;padding:0;box-shadow:0 28px 80px rgba(10,61,91,.25);transform:translateY(24px) scale(.86) rotateX(7deg);opacity:0}
+  .insight-modal.open .insight-card{animation:cardIn .65s cubic-bezier(.16,1,.3,1) .04s both}
+  .insight-modal.closing .insight-card{animation:cardOut .3s cubic-bezier(.55,.06,.68,.19) both}
+  @keyframes modalIn{from{background:rgba(10,46,72,0)}to{background:rgba(10,46,72,.38)}}
+  @keyframes modalOut{from{background:rgba(10,46,72,.38)}to{background:rgba(10,46,72,0)}}
+  @keyframes cardIn{0%{opacity:0;transform:translateY(24px) scale(.86) rotateX(7deg);filter:blur(4px)}65%{opacity:1;transform:translateY(-4px) scale(1.015) rotateX(0);filter:blur(0)}100%{opacity:1;transform:none}}
+  @keyframes cardOut{from{opacity:1;transform:none;filter:blur(0)}to{opacity:0;transform:translateY(18px) scale(.92) rotateX(-4deg);filter:blur(3px)}}
+  .insight-close{position:absolute;right:18px;top:17px;width:34px;height:34px;border:1px solid rgba(255,255,255,.65);border-radius:50%;background:rgba(255,255,255,.2);color:#fff;font-size:22px;line-height:1;cursor:pointer;z-index:2;transition:.2s}
+  .insight-close:hover{background:#fff;color:var(--blue-deep);transform:rotate(90deg)}
+  .insight-header{position:relative;padding:26px 34px 28px;color:#fff;background:linear-gradient(125deg,#0b587d,#168fc1 62%,#35b9c3);overflow:hidden}
+  .insight-header:after{content:'';position:absolute;width:180px;height:180px;right:-45px;bottom:-100px;border:1px solid rgba(255,255,255,.22);border-radius:50%;box-shadow:0 0 0 22px rgba(255,255,255,.06),0 0 0 44px rgba(255,255,255,.04)}
+  .insight-header:before{content:'';position:absolute;inset:-50%;background:linear-gradient(105deg,transparent 42%,rgba(255,255,255,.25) 50%,transparent 58%);transform:translateX(-70%);pointer-events:none}
+  .insight-modal.open .insight-header:before{animation:headerSweep .9s ease-out .25s both}
+  @keyframes headerSweep{to{transform:translateX(70%)}}
+  .insight-eyebrow{font:11px var(--mono);letter-spacing:.12em;color:#dff8ff;margin-bottom:17px;position:relative;z-index:1}
+  .insight-title-row{display:flex;align-items:center;gap:14px;position:relative;z-index:1}
+  .medical-cross{width:42px;height:42px;display:grid;place-items:center;border-radius:12px;background:rgba(255,255,255,.17);border:1px solid rgba(255,255,255,.35);font:500 25px var(--serif)}
+  .insight-card h2{font:600 28px var(--serif);line-height:1.15;margin:0;color:#fff}
+  .insight-body{padding:27px 34px 30px}
+  .insight-card p{color:var(--ink-soft);font-size:15px;margin-bottom:20px}
+  .insight-modal.open .insight-eyebrow{animation:riseIn .4s ease .28s both}
+  .insight-modal.open .insight-title-row{animation:riseIn .45s ease .36s both}
+  .insight-modal.open .insight-body p{animation:riseIn .45s ease .46s both}
+  .insight-modal.open .insight-stat{animation:statIn .45s cubic-bezier(.22,1,.36,1) both}
+  .insight-modal.open .insight-stat:nth-child(1){animation-delay:.54s}.insight-modal.open .insight-stat:nth-child(2){animation-delay:.62s}.insight-modal.open .insight-stat:nth-child(3){animation-delay:.70s}
+  .insight-modal.open .signal{animation:riseIn .45s ease .78s both}
+  @keyframes riseIn{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+  @keyframes statIn{from{opacity:0;transform:translateY(16px) scale(.94)}to{opacity:1;transform:none}}
+  .insight-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0}
+  .insight-stat{padding:14px 12px;border-radius:13px;background:#fff;border:1px solid #dcecf4;box-shadow:0 5px 16px rgba(23,101,137,.06)}
+  .insight-stat strong{display:block;color:#087aa7;font:600 22px var(--serif)}
+  .insight-stat span{display:block;color:var(--ink-faint);font-size:11px;line-height:1.35;margin-top:3px}
+  .signal{display:flex;align-items:center;gap:9px;padding:13px 14px;border-radius:11px;background:#effaf5;border:1px solid #ccecdf;color:#267447;font-size:13px}
+  .signal i{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(76,175,107,.13);flex:none}
+  .toast{position:fixed;left:50%;bottom:24px;z-index:210;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:var(--ink);color:#fff;padding:11px 16px;border-radius:10px;font-size:13px;box-shadow:0 10px 30px rgba(15,36,57,.25);transition:.25s;white-space:nowrap}
+  .toast.show{opacity:1;transform:translate(-50%,0)}
+  @media(max-width:640px){.gimmick-trigger{right:14px;bottom:14px}.insight-header{padding:24px 22px}.insight-body{padding:24px 22px 25px}.insight-grid{gap:7px}.insight-stat{padding:11px 8px}.toast{max-width:calc(100% - 28px);white-space:normal;text-align:center}}
+  @media(prefers-reduced-motion:reduce){.insight-modal,.insight-card,.insight-modal *{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
 </style>
 </head>
 <body>
@@ -173,10 +243,10 @@
         <div class="hero-tag">AI ในงานรังสีวิทยา</div>
         <h1>การใช้ <span class="accent">AI</span> ในงานรังสีวิทยา</h1>
         <div class="hero-menu">
-          <div class="item"><span class="dot"></span>prompt</div>
-          <div class="item"><span class="dot"></span>อธิบายความสัมพันธ์ทาง คณิตศาสตร์</div>
-          <div class="item"><span class="dot"></span>diagrams จาก mermaid code</div>
-          <div class="item"><span class="dot"></span>บทความ</div>
+          <button class="item" type="button" data-target="prompt1"><span class="dot"></span>prompt</button>
+          <button class="item" type="button" data-target="math"><span class="dot"></span>อธิบายความสัมพันธ์ทาง คณิตศาสตร์</button>
+          <button class="item" type="button" data-target="diagram"><span class="dot"></span>diagrams จาก mermaid code</button>
+          <button class="item" type="button" data-target="intro"><span class="dot"></span>บทความ</button>
         </div>
       </div>
       <div class="hero-figure">
@@ -370,5 +440,44 @@
   </div>
 </footer>
 
+
+<div class="reading-progress" aria-hidden="true"></div>
+<button class="gimmick-trigger" type="button" aria-haspopup="dialog" aria-controls="insightModal"><span class="pulse"></span>AI INSIGHT</button>
+<div class="insight-modal" id="insightModal" role="dialog" aria-modal="true" aria-labelledby="insightTitle">
+  <div class="insight-card">
+    <button class="insight-close" type="button" aria-label="ปิดหน้าต่าง">×</button>
+    <div class="insight-header">
+      <div class="insight-eyebrow">RADIOLOGY / CLINICAL ASSISTANT</div>
+      <div class="insight-title-row"><div class="medical-cross" aria-hidden="true">＋</div><h2 id="insightTitle">AI Clinical Insight</h2></div>
+    </div>
+    <div class="insight-body">
+      <p>ระบบช่วยคัดกรองและจัดลำดับความสำคัญของภาพตรวจ เพื่อให้ทีมแพทย์เห็นข้อมูลสำคัญได้เร็วขึ้น โดยการตัดสินใจสุดท้ายยังอยู่กับผู้เชี่ยวชาญเสมอ</p>
+      <div class="insight-grid"><div class="insight-stat"><strong>01</strong><span>Scan context</span></div><div class="insight-stat"><strong>02</strong><span>Find patterns</span></div><div class="insight-stat"><strong>03</strong><span>Human review</span></div></div>
+      <div class="signal"><i></i><span>ระบบพร้อมใช้งาน — เลื่อนอ่านต่อเพื่อค้นหา insight ถัดไป</span></div>
+    </div>
+  </div>
+</div>
+<div class="toast" role="status" aria-live="polite"></div>
+<script>
+(() => {
+  const modal=document.getElementById('insightModal'), trigger=document.querySelector('.gimmick-trigger'), close=document.querySelector('.insight-close'), toast=document.querySelector('.toast'), progress=document.querySelector('.reading-progress');
+  const messages=['Prompt พร้อมแล้ว — ลองคิดเหมือนกำลังสั่งงาน AI อย่างเป็นระบบ','Math layer detected — ความสัมพันธ์ช่วยให้เราอธิบายผลลัพธ์ได้','Diagram mode — มอง workflow ให้เห็นภาพในครั้งเดียว','Article insight — เลื่อนต่อเพื่อเชื่อมโยงแนวคิด']; let timer;
+  function openModal(){modal.classList.remove('closing');modal.classList.add('open');document.body.style.overflow='hidden';close.focus()}
+  function closeModal(){if(!modal.classList.contains('open'))return;modal.classList.remove('open');modal.classList.add('closing');document.body.style.overflow='';setTimeout(()=>{modal.classList.remove('closing');trigger.focus()},380)}
+  trigger.addEventListener('click',openModal); close.addEventListener('click',closeModal); modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('open'))closeModal()});
+  const menuItems=[...document.querySelectorAll('.hero-menu .item')];
+  const targets=menuItems.map(item=>document.getElementById(item.dataset.target)).filter(Boolean);
+  menuItems.forEach((item,i)=>item.addEventListener('click',()=>{const target=document.getElementById(item.dataset.target);if(!target)return;menuItems.forEach(button=>button.classList.remove('active'));item.classList.add('active');target.scrollIntoView({behavior:'smooth',block:'start'});setTimeout(()=>{target.classList.remove('focus-pulse');void target.offsetWidth;target.classList.add('focus-pulse')},500);toast.textContent=messages[i]||'Insight detected';toast.classList.add('show');clearTimeout(timer);timer=setTimeout(()=>toast.classList.remove('show'),2800)}));
+  const sections=[...document.querySelectorAll('section:not(.hero)')];
+  sections.forEach(section=>section.classList.add('reveal-ready'));
+  const revealObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting)entry.target.classList.add('is-visible')}),{threshold:.12});
+  sections.forEach(section=>revealObserver.observe(section));
+  const activeObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){const active=menuItems.find(item=>item.dataset.target===entry.target.id);if(active){menuItems.forEach(button=>button.classList.remove('active'));active.classList.add('active')}}}),{rootMargin:'-25% 0px -60% 0px',threshold:0});
+  targets.forEach(target=>activeObserver.observe(target));
+  function update(){const max=document.documentElement.scrollHeight-window.innerHeight;progress.style.width=(max>0?window.scrollY/max*100:0)+'%'}
+  window.addEventListener('scroll',update,{passive:true});update();
+})();
+</script>
 </body>
 </html>
